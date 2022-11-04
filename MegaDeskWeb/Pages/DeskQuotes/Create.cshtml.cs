@@ -21,14 +21,18 @@ namespace MegaDeskWeb.Pages.DesksQuotes
 
         public IActionResult OnGet()
         {
-        ViewData["DeliveryTypeId"] = new SelectList(_context.Set<DeliveryType>(), "DeliveryTypeId", "DeliveryTypeId");
-        ViewData["DeskId"] = new SelectList(_context.Desk, "DeskId", "DeskId");
+        ViewData["DeliveryTypeId"] = new SelectList(_context.Set<DeliveryType>(), "DeliveryTypeId", "DeliveryName");
+            ViewData["DesktopMaterialId"] = new SelectList(_context.Set<DesktopMaterial>(), "DesktopMaterialId", "DesktopMaterialName");
+            ViewData["DeskId"] = new SelectList(_context.Desk, "DeskId", "Desk");
             return Page();
         }
 
         [BindProperty]
         public DeskQuote DeskQuote { get; set; }
-        
+
+        [BindProperty]
+        public DeskQuote Desk { get; set; }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -38,6 +42,7 @@ namespace MegaDeskWeb.Pages.DesksQuotes
                 return Page();
             }
 
+            DeskQuote.QuoteDate = DateTime.Now;
             _context.DeskQuote.Add(DeskQuote);
             await _context.SaveChangesAsync();
 
