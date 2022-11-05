@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaDeskWeb.Models
 {
     public class Desk
     {
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DeskId { get; set; }
 
         public decimal Width { get; set; }
@@ -19,8 +21,8 @@ namespace MegaDeskWeb.Models
 
         // Nav properties
 
-        public DesktopMaterial DesktopMaterial { get; set; }
+        public DesktopMaterial ?DesktopMaterial { get; set; }
 
-        public DeskQuote DeskQuote { get; set; }
+        public DeskQuote ?DeskQuote { get; set; }
     }
 }

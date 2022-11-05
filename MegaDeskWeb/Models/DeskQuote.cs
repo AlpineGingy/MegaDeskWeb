@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using MegaDeskWeb.Data;
 using Microsoft.Extensions.Hosting;
 
@@ -12,10 +13,11 @@ namespace MegaDeskWeb.Models
         private const decimal DRAWER_COST = 50.00M;
 
         // properties
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string DeskQuoteId { get; set; }
 
         [Display(Name = "Customer Name")]
-        public string CustomerName { get; set; }
+        public string ?CustomerName { get; set; }
 
         [Display(Name = "Quote Date")]
         public DateTime QuoteDate { get; set; }
@@ -32,29 +34,30 @@ namespace MegaDeskWeb.Models
 
         // Nav properties
 
-        public Desk Desk { get; set; }
+        public Desk ?Desk { get; set; }
 
-        public DeliveryType DeliveryType { get; set; }
+        public DeliveryType ?DeliveryType { get; set; }
 
         // methods 
         public decimal GetQuotePrice(MegaDeskWebContext context)
         {
+            var Desk = context.Desk.Local.ToList();
             decimal QuotePrice = BASE_DESK_PRICE;
-            decimal surfaceArea = Desk.Width * Desk.Depth;
+            decimal surfaceArea = Desk[0].Width * Desk[0].Depth;
             if (surfaceArea > 1000)
                 QuotePrice += SURFACE_AREA_COST * (surfaceArea - 1000);
 
-            QuotePrice += (Desk.NumberOfDrawers * DRAWER_COST);
+            QuotePrice += (Desk[0].NumberOfDrawers * DRAWER_COST);
 
-            QuotePrice += Desk.DesktopMaterial.Cost;
+            //QuotePrice += Desk[0].DesktopMaterialId.Cost;
 
 
-            if (surfaceArea < 1000)
-                QuotePrice += DeliveryType.PriceUnder1000;
-            else if (surfaceArea >= 1000 && surfaceArea <= 2000)
-                QuotePrice += DeliveryType.PriceBetween1000and2000;
-            else
-                QuotePrice += DeliveryType.PriceOver2000;
+            //if (surfaceArea < 1000)
+            //    QuotePrice += DeliveryType.PriceUnder1000;
+            //else if (surfaceArea >= 1000 && surfaceArea <= 2000)
+            //    QuotePrice += DeliveryType.PriceBetween1000and2000;
+            //else
+            //    QuotePrice += DeliveryType.PriceOver2000;
 
             return QuotePrice;
         }
