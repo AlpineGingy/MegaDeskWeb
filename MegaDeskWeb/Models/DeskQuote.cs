@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MegaDeskWeb.Data;
+using Microsoft.Extensions.Hosting;
 
 namespace MegaDeskWeb.Models
 {
@@ -38,6 +39,23 @@ namespace MegaDeskWeb.Models
         // methods 
         public decimal GetQuotePrice(MegaDeskWebContext context)
         {
+            decimal QuotePrice = BASE_DESK_PRICE;
+            decimal surfaceArea = Desk.Width * Desk.Depth;
+            if (surfaceArea > 1000)
+                QuotePrice += SURFACE_AREA_COST * (surfaceArea - 1000);
+
+            QuotePrice += (Desk.NumberOfDrawers * DRAWER_COST);
+
+            QuotePrice += Desk.DesktopMaterial.Cost;
+
+
+            if (surfaceArea < 1000)
+                QuotePrice += DeliveryType.PriceUnder1000;
+            else if (surfaceArea >= 1000 && surfaceArea <= 2000)
+                QuotePrice += DeliveryType.PriceBetween1000and2000;
+            else
+                QuotePrice += DeliveryType.PriceOver2000;
+
             return QuotePrice;
         }
 
