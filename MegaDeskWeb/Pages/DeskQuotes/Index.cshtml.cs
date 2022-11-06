@@ -44,9 +44,6 @@ namespace MegaDeskWeb.Pages.DesksQuotes
 
             Customers = new SelectList(await quoteQuery.Distinct().ToListAsync());
 
-            //DeskQuote = await quotes
-            //    .ToListAsync();
-
             if (_context.DeskQuote != null)
             {
                 DeskQuote = await quotes
