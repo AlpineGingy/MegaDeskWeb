@@ -36,10 +36,10 @@ namespace MegaDeskWeb.Pages.DesksQuotes
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          //if (!ModelState.IsValid)
-          //  {
-          //      return Page();
-          //  }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             DeskQuote.QuoteDate = DateTime.Now;
             
