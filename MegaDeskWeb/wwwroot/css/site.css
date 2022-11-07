@@ -15,4 +15,9 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: rgb(209, 190, 136);
+}
+
+header {
+    background-color: rgb(91, 61, 31);
 }

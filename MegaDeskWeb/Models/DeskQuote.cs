@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MegaDeskWeb.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 namespace MegaDeskWeb.Models
@@ -14,7 +15,7 @@ namespace MegaDeskWeb.Models
 
         // properties
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string DeskQuoteId { get; set; }
+        public string ?DeskQuoteId { get; set; }
 
         [Display(Name = "Customer Name")]
         public string ?CustomerName { get; set; }
@@ -34,7 +35,7 @@ namespace MegaDeskWeb.Models
 
         // Nav properties
 
-        public Desk ?Desk { get; set; }
+        public Desk ?Desk { get; set; } 
 
         public DeliveryType ?DeliveryType { get; set; }
 
@@ -49,7 +50,7 @@ namespace MegaDeskWeb.Models
 
             QuotePrice += (Desk[0].NumberOfDrawers * DRAWER_COST);
 
-            //QuotePrice += Desk[0].DesktopMaterialId.Cost;
+            //QuotePrice += Desk[0].DesktopMaterial.Cost;
 
 
             //if (surfaceArea < 1000)

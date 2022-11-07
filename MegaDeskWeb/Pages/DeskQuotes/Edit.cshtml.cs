@@ -36,7 +36,7 @@ namespace MegaDeskWeb.Pages.DesksQuotes
                 return NotFound();
             }
             DeskQuote = deskquote;
-           ViewData["DeliveryTypeId"] = new SelectList(_context.Set<DeliveryType>(), "DeliveryTypeId", "DeliveryTypeId");
+           ViewData["DeliveryTypeId"] = new SelectList(_context.Set<DeliveryType>(), "DeliveryTypeId", "DeliveryName");
            ViewData["DeskId"] = new SelectList(_context.Desk, "DeskId", "DeskId");
             return Page();
         }
