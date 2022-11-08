@@ -28,6 +28,9 @@ namespace MegaDeskWeb.Pages.DesksQuotes
         [BindProperty(SupportsGet = true)]
         public string CustomerName { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+
         public async Task OnGetAsync()
         {
             IQueryable<string> quoteQuery = from q in _context.DeskQuote
@@ -36,6 +39,11 @@ namespace MegaDeskWeb.Pages.DesksQuotes
 
             var quotes = from q in _context.DeskQuote
                          select q;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                quotes = quotes.Where(q => q.CustomerName.Contains(SearchString));
+            }
 
             if (!string.IsNullOrEmpty(CustomerName))
             {

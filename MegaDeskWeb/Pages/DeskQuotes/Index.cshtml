@@ -16,6 +16,7 @@
         <select asp-for="CustomerName" asp-items="Model.Customers">
             <option value="">All</option>
         </select>
+        Notes: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />
     </p>
 </form>
